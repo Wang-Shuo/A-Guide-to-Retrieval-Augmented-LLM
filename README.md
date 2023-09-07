@@ -1,6 +1,6 @@
 # A-Guide-to-Retrieval-Augmented-LLM
 
-ChatGPT 的出现，让我们看到了大语言模型 ( Large Language Model, LLM ) 在语言和代码理解、人类指令遵循、基本推理等多方面的能力，但幻觉问题 **[Hallucinations](https://machinelearningmastery.com/a-gentle-introduction-to-hallucinations-in-large-language-models/)** 仍然是当前大语言模型面临的一个重要挑战。简单来说，幻觉问题是指 LLM 生成不正确、荒谬或者与事实不符的结果。此外，数据新鲜度 ( Data Freshness ) 也是 LLM 在生成结果时出现的另外一个问题，即 LLM 对于一些时效性比较强的问题可能给不出或者给出过时的答案。而通过检索外部相关信息的方式来增强 LLM 的生成结果是当前解决以上问题的一种流行方案，这里把这种方案称为 **检索增强 LLM** ( Retrieval Augmented LLM )。这篇长文将对检索增强 LLM 的方案进行一个相对全面的介绍。主要内容包括：
+ChatGPT 的出现，让我们看到了大语言模型 ( Large Language Model, LLM ) 在语言和代码理解、人类指令遵循、基本推理等多方面的能力，但幻觉问题 **[Hallucinations](https://machinelearningmastery.com/a-gentle-introduction-to-hallucinations-in-large-language-models/)** 仍然是当前大语言模型面临的一个重要挑战。简单来说，幻觉问题是指 LLM 生成不正确、荒谬或者与事实不符的结果。此外，数据新鲜度 ( Data Freshness ) 也是 LLM 在生成结果时出现的另外一个问题，即 LLM 对于一些时效性比较强的问题可能给不出或者给出过时的答案。而通过检索外部相关信息的方式来增强 LLM 的生成结果是当前解决以上问题的一种流行方案，这里把这种方案称为 **检索增强 LLM** ( Retrieval Augmented LLM )，有时候也被称为 检索增强生成 ( Retrieval Augmented Generation, RAG )。 这篇长文将对检索增强 LLM 的方案进行一个相对全面的介绍。主要内容包括：
 
 - 检索增强 LLM 的概念介绍、重要性及其解决的问题
 - 检索增强 LLM 的关键模块及其实现方法
@@ -10,7 +10,7 @@ ChatGPT 的出现，让我们看到了大语言模型 ( Large Language Model, LL
 
 # 什么是检索增强 LLM
 
-检索增强 LLM ( Retrieval Augmented LLM )，简单来说，就是给 LLM 提供外部数据库，对于用户问题 ( Query )，通过一些信息检索 ( Information Retrieval, IR ) 的技术，先从外部数据库中检索出和用户问题相关的信息，然后让 LLM 结合这些相关信息来生成结果。这种模式有时候也被称为 检索增强生成 ( Retrieval Augmented Generation, RAG )。 下图是一个检索增强 LLM 的简单示意图。
+检索增强 LLM ( Retrieval Augmented LLM )，简单来说，就是给 LLM 提供外部数据库，对于用户问题 ( Query )，通过一些信息检索 ( Information Retrieval, IR ) 的技术，先从外部数据库中检索出和用户问题相关的信息，然后让 LLM 结合这些相关信息来生成结果。下图是一个检索增强 LLM 的简单示意图。
 
 ![retrieval_augmented_llm_overall_architecture](assets/retrieval_augmented_llm_overall_architecture.png)
 
@@ -22,7 +22,7 @@ OpenAI 研究科学家 Andrej Karpathy 前段时间在微软 Build 2023 大会�
 
 不仅 Andrej 的分享中提到基于检索来增强 LLM 这一应用方式，从一些著名投资机构针对 AI 初创企业技术栈的调研和总结中，也可以看到基于检索来增强 LLM 技术的广泛应用。比如今年6月份红杉资本发布了一篇关于大语言模型技术栈的文章 [**The New Language Model Stack**](https://www.sequoiacap.com/article/llm-stack-perspective/)，其中就给出了一份对其投资的33家 AI 初创企业进行的问卷调查结果，下图的调查结果显示有 88% 左右的创业者表示在自己的产品中有使用到基于检索增强 LLM 技术。
 
-![sequoia_language_model_survey](sequoia_language_model_survey.png)
+![sequoia_language_model_survey](assets/sequoia_language_model_survey.png)
 
 无独有偶，美国著名风险投资机构 A16Z 在今年6月份也发表了一篇介绍当前 LLM 应用架构的总结文章 [**Emerging Architectures for LLM Applications**](https://a16z.com/emerging-architectures-for-llm-applications/)，下图就是文章中总结的当前 LLM 应用的典型架构，其中最上面 **Contextual Data** 引入 LLM 的方式就是一种通过检索来增强 LLM 的思路。 
 

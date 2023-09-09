@@ -8,6 +8,8 @@ ChatGPT 的出现，让我们看到了大语言模型 ( Large Language Model, LL
 
 这篇文章算是自己对这个领域的一篇学习总结，所以可能不是很专业和深入，也难免会有一些不准确的地方，欢迎讨论。
 
+![timemate_wechat](assets/timemate_wechat.png)
+
 # 什么是检索增强 LLM
 
 检索增强 LLM ( Retrieval Augmented LLM )，简单来说，就是给 LLM 提供外部数据库，对于用户问题 ( Query )，通过一些信息检索 ( Information Retrieval, IR ) 的技术，先从外部数据库中检索出和用户问题相关的信息，然后让 LLM 结合这些相关信息来生成结果。下图是一个检索增强 LLM 的简单示意图。

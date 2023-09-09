@@ -8,7 +8,7 @@ ChatGPT 的出现，让我们看到了大语言模型 ( Large Language Model, LL
 
 这篇文章算是自己对这个领域的一篇学习总结，所以可能不是很专业和深入，也难免会有一些不准确的地方，欢迎讨论。
 
-![timemate_wechat](assets/timemate_wechat.png)
+![timemate_wechat](assets/timemate_wechat.jpeg)
 
 # 什么是检索增强 LLM
 
